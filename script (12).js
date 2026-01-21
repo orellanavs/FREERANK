@@ -11,7 +11,7 @@
     </style>
 </head>
 <body>
-    <div class="load">Redirigiendo a MineFun Hacks Premium...</div>
+    <div class="load">Redirigiendo...</div>
 
 <script>
 
